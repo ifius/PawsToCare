@@ -26,7 +26,8 @@ $filter['weight-end'] = $_GET['filter-weight-end'] ?: 1000;
 
 
 $stmt = $pdo->prepare("
-SELECT * 
+SELECT id, name, breed, sex, shots, licensed, neutered, 
+FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age
 FROM dogs 
 WHERE 
 name LIKE :filterName

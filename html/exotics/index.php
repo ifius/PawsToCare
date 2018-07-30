@@ -21,7 +21,8 @@ $filter['neutered'] = $_GET['filter-neutered'] . "%" ?: "%";
 $filter['birthdate'] = $_GET['filter-birthdate'] . "%" ?: "%";
 
 $stmt = $pdo->prepare("
-SELECT * 
+SELECT id, name, species, sex, neutered,
+FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age
 FROM exotics 
 WHERE 
 name LIKE :filterName
