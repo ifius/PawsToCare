@@ -150,11 +150,11 @@ function buildRow(dog) {
   let row = $('<td>', { text: dog.name })
     .add($('<td>', { text: dog.breed }))
     .add($('<td>', { text: dog.sex }))
-    .add($('<td>', { text: dog.shots ? '✔' : '✘', class: dog.shots ? 'text-success' : 'text-failure'}))
+    .add($('<td>', { text: dog.shots ? '✔' : '✘', class: dog.shots ? 'text-success' : 'text-danger'}))
     .add($('<td>', { text: dog.age }))
     .add($('<td>', { text: dogSizeForDisplay(dog.weight) }))
-    .add($('<td>', { text: dog.licensed ? '✔' : '✘', class: dog.licensed ? 'text-success' : 'text-failure'}))
-    .add($('<td>', { text: dog.neutered ? '✔' : '✘', class: dog.neutered ? 'text-success' : 'text-failure'}))
+    .add($('<td>', { text: dog.licensed ? '✔' : '✘', class: dog.licensed ? 'text-success' : 'text-danger'}))
+    .add($('<td>', { text: dog.neutered ? '✔' : '✘', class: dog.neutered ? 'text-success' : 'text-danger'}))
     .add(
       $('<td>', {
         html: $('<button>', {

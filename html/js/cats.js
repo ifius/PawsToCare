@@ -243,10 +243,10 @@ function buildRow(cat) {
   let row = $('<td>', { text: cat.name })
     .add($('<td>', { text: cat.breed }))
     .add($('<td>', { text: cat.sex }))
-    .add($('<td>', { text: cat.shots ? '✔' : '✘', class: cat.shots ? 'text-success' : 'text-failure'}))
+    .add($('<td>', { text: cat.shots ? '✔' : '✘', class: cat.shots ? 'text-success' : 'text-danger'}))
     .add($('<td>', { text: cat.age }))
-    .add($('<td>', { text: cat.declawed ? '✔' : '✘', class: cat.declawed ? 'text-success' : 'text-failure'}))
-    .add($('<td>', { text: cat.neutered ? '✔' : '✘', class: cat.neutered ? 'text-success' : 'text-failure'}))
+    .add($('<td>', { text: cat.declawed ? '✔' : '✘', class: cat.declawed ? 'text-success' : 'text-danger'}))
+    .add($('<td>', { text: cat.neutered ? '✔' : '✘', class: cat.neutered ? 'text-success' : 'text-danger'}))
     .add(
       $('<td>', {
         html: $('<button>', {
