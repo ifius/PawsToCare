@@ -113,8 +113,8 @@ function buildHeader() {
   $(header).attr('data-toggle', 'tooltip');
   $(header).tooltip();
 
-  let inputHeader = $('<td>').append($('<input>', {class: 'form-control', placeholder: 'filter', id: 'nameFilter'}).keyup(debounceFilter))
-    .add($('<td>').append($('<input>', {class: 'form-control',placeholder: 'filter', id: 'breedFilter'}).keyup(debounceFilter)))
+  let inputHeader = $('<td>').append($('<input>', {class: 'form-control', placeholder: 'filter', id: 'nameFilter'}).keyup(dogsDebounceFilter))
+    .add($('<td>').append($('<input>', {class: 'form-control',placeholder: 'filter', id: 'breedFilter'}).keyup(dogsDebounceFilter)))
     .add($('<td>').append($('<select>', {class: 'form-control', id: 'sexFilter'}).change(redisplayTable)
       .append($('<option>', {value: '', text: 'All'}))
       .append($('<option>', {value: 'M', text: 'M'}))
@@ -123,9 +123,9 @@ function buildHeader() {
       .append($('<option>', {value: '', text: 'All'}))
       .append($('<option>', {value: '1', text: 'Yes'}))
       .append($('<option>', {value: '0', text: 'No'}))))
-    .add($('<td>').append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'begin', id: 'ageBeginFilter'}).keyup(debounceFilter))
+    .add($('<td>').append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'begin', id: 'ageBeginFilter'}).keyup(dogsDebounceFilter))
       .append($('<span>').text(' - '))
-      .append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'end', id: 'ageEndFilter'}).keyup(debounceFilter)))
+      .append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'end', id: 'ageEndFilter'}).keyup(dogsDebounceFilter)))
     .add($('<td>').append($('<select>', {class: 'form-control', id: 'sizeFilter'}).change(redisplayTable)
       .append($('<option>', {value: '', text: 'All'}))
       .append($('<option>', {value: 'S', text: 'Small'}))
@@ -426,4 +426,4 @@ function filterdogs () {
   return filteredData;
 }
 
-const debounceFilter = _.debounce(redisplayTable, 500);
+const dogsDebounceFilter = _.debounce(redisplayTable, 500);

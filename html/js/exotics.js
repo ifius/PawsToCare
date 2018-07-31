@@ -85,15 +85,15 @@ function buildHeader() {
   $(header).attr('data-toggle', 'tooltip');
   $(header).tooltip();
 
-  let inputHeader = $('<td>').append($('<input>', {class: 'form-control', placeholder: 'filter', id: 'nameFilter'}).keyup(debounceFilter))
-    .add($('<td>').append($('<input>', {class: 'form-control',placeholder: 'filter', id: 'speciesFilter'}).keyup(debounceFilter)))
+  let inputHeader = $('<td>').append($('<input>', {class: 'form-control', placeholder: 'filter', id: 'nameFilter'}).keyup(exoticsDebounceFilter))
+    .add($('<td>').append($('<input>', {class: 'form-control',placeholder: 'filter', id: 'speciesFilter'}).keyup(exoticsDebounceFilter)))
     .add($('<td>').append($('<select>', {class: 'form-control', id: 'sexFilter'}).change(redisplayTable)
       .append($('<option>', {value: '', text: 'All'}))
       .append($('<option>', {value: 'M', text: 'M'}))
       .append($('<option>', {value: 'F', text: 'F'}))))
-    .add($('<td>').append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'begin', id: 'ageBeginFilter'}).keyup(debounceFilter))
+    .add($('<td>').append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'begin', id: 'ageBeginFilter'}).keyup(exoticsDebounceFilter))
       .append($('<span>').text(' - '))
-      .append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'end', id: 'ageEndFilter'}).keyup(debounceFilter)))
+      .append($('<input>', {class: 'form-control w-25 d-inline',placeholder: 'end', id: 'ageEndFilter'}).keyup(exoticsDebounceFilter)))
     .add($('<td>'))
     .add($('<td>'));
 
@@ -254,4 +254,4 @@ function filterexotics () {
   return filteredData;
 }
 
-const debounceFilter = _.debounce(redisplayTable, 500);
+const exoticsDebounceFilter = _.debounce(redisplayTable, 500);

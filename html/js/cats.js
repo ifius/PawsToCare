@@ -164,7 +164,7 @@ function buildHeader() {
         class: 'form-control',
         placeholder: 'filter',
         id: 'nameFilter'
-      }).keyup(debounceFilter)
+      }).keyup(catsDebounceFilter)
     )
     .add(
       $('<td>').append(
@@ -172,7 +172,7 @@ function buildHeader() {
           class: 'form-control',
           placeholder: 'filter',
           id: 'breedFilter'
-        }).keyup(debounceFilter)
+        }).keyup(catsDebounceFilter)
       )
     )
     .add(
@@ -200,7 +200,7 @@ function buildHeader() {
             class: 'form-control w-25 d-inline',
             placeholder: 'begin',
             id: 'ageBeginFilter'
-          }).keyup(debounceFilter)
+          }).keyup(catsDebounceFilter)
         )
         .append($('<span>').text(' - '))
         .append(
@@ -208,7 +208,7 @@ function buildHeader() {
             class: 'form-control w-25 d-inline',
             placeholder: 'end',
             id: 'ageEndFilter'
-          }).keyup(debounceFilter)
+          }).keyup(catsDebounceFilter)
         )
     )
     .add(
@@ -512,4 +512,4 @@ function filterCats() {
   return filteredData;
 }
 
-const debounceFilter = _.debounce(redisplayTable, 500);
+const catsDebounceFilter = _.debounce(redisplayTable, 500);
