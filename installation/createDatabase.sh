@@ -4,7 +4,7 @@ mysql -u root -p < createDatabase.sql |
 	grep -E "^[a-f|0-9]{8}-[a-f|0-9]{4}-[a-f|0-9]{4}-[a-f|0-9]{4}-[a-f|0-9]{12}" > webuser.password
 
 echo "webuser created with password $(cat webuser.password)"
-cp webuser.password Faker/
+cp webuser.password faker/
 echo "<?php \$databasePassword = '$(cat webuser.password)'; ?>" | sudo tee /etc/webuser.password.php > /dev/null
 sudo cp pawsToCare.config.php /etc/
 
