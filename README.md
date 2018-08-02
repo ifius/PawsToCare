@@ -30,7 +30,7 @@ The following items are tested:
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+TODO: Add notes about removing fake data for a production deployment
 
 ## Version
 
@@ -49,7 +49,7 @@ Milestone One Release
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
