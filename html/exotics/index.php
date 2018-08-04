@@ -22,7 +22,9 @@ $filter['birthdate'] = $_GET['filter-birthdate'] . "%" ?: "%";
 
 $stmt = $pdo->prepare("
 SELECT id, name, species, sex, neutered,
-FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age
+FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age,
+(SELECT COUNT(*) FROM exoticsOwners WHERE exoticsFk = exotics.id) AS ownersCount,
+(SELECT COUNT(*) FROM exoticNotes WHERE exoticsFk = exotics.id) AS notesCount
 FROM exotics 
 WHERE 
 name LIKE :filterName

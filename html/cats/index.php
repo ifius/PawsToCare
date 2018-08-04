@@ -24,7 +24,9 @@ $filter['birthdate'] = $_GET['filter-birthdate'] . "%" ?: "%";
 
 $stmt = $pdo->prepare("
 SELECT id, name, breed, sex, shots, declawed, neutered,
-FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age
+FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age,
+(SELECT COUNT(*) FROM catsOwners WHERE catsFk = cats.id) AS ownersCount,
+(SELECT COUNT(*) FROM catNotes WHERE catsFk = cats.id) AS notesCount
 FROM cats 
 WHERE 
 name LIKE :filterName

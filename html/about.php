@@ -26,9 +26,7 @@
             <div class="collapse navbar-collapse" id="adminNavBar">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home
-                            <span class="sr-only">(current)</span>
-
+                        <a class="nav-link" href="index.html">Home
                         </a>
                     </li>
                     <li class="nav-item">
@@ -44,7 +42,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About
+                        <a class="nav-link active" href="about.html">About
+                            <span class="sr-only">(current)</span>
                         </a>
                     </li>
 
@@ -54,43 +53,89 @@
                 </ul>
             </div>
         </nav>
-        <h1>Paws to Care</h1>
-        <div class="card-deck">
+
+        <h1>Our Staff</h1>
+        <div class="card-deck mb-5">
             <div class="card bg-dark text-light">
                 <div class="card-header h2">
-                    Licensed and Acredited
+                    Cynthia Love
                 </div>
-                <img class="card-img-top" src="images/vet.jpg" alt="Card image cap">
+                <img class="card-img-top" src="images/01.jpg" alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit, delectus!
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat ut rem nostrum! Distinctio atque rerum a quibusdam sit
+                        repellendus eum.
                     </p>
                 </div>
             </div>
             <div class="card bg-dark text-light">
                 <div class="card-header h2">
-                    Dogs, Cats, and Small Animals
+                    Cale Wuckert
                 </div>
-                <img class="card-img-top" src="images/dogAndCat.jpg" alt="Card image cap">
+                <img class="card-img-top" src="images/02.jpg" alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, tempore!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium exercitationem ipsum eum quis provident natus nulla
+                        recusandae incidunt harum sed.
                     </p>
                 </div>
             </div>
             <div class="card bg-dark text-light">
                 <div class="card-header h2">
-                    Convenience
+                    Brianne Spinka
                 </div>
-                <img class="card-img-top" src="images/van.jpg" alt="Card image cap">
+                <img class="card-img-top" src="images/03.jpg" alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non, quia!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos alias repellendus officia harum quidem corrupti. Tempore delectus
+                        rerum necessitatibus sit.
+                    </p>
+                </div>
+            </div>
+            <div class="card bg-dark text-light">
+                <div class="card-header h2">
+                    Nicklaus Bogan
+                </div>
+                <img class="card-img-top" src="images/04.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam impedit nam ullam quod porro voluptatem, ipsa beatae itaque?
+                        Cum, hic?
+                    </p>
+                </div>
+            </div>
+            <div class="card bg-dark text-light">
+                <div class="card-header h2">
+                    Zoey Jenkins
+                </div>
+                <img class="card-img-top" src="images/05.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum vitae doloremque sunt dolorum ipsum at tempora illo, nam
+                        quidem provident?
                     </p>
                 </div>
             </div>
         </div>
+        <h1>Website Design</h1>
+
+        <div class="card bg-dark text-light w-25">
+            <div class="card-header h2">
+                John Barton
+            </div>
+            <img class="card-img-top" src="images/me.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">
+                    Utah Valley University
+                    <br>Summer 2018
+                    <br>
+                    <a class="btn btn-primary" href="mailto:john@barton.link">john@barton.link</a>
+                </p>
+            </div>
+        </div>
     </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
@@ -98,7 +143,7 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" integrity="sha256-/GKyJ0BQJD8c8UYgf7ziBrs/QgcikS7Fv/SaArgBcEI="
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js" integrity="sha256-YN22NHB7zs5+LjcHWgk3zL0s+CRnzCQzDOFnndmUamY="
         crossorigin="anonymous"></script>
 </body>
 
