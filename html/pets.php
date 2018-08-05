@@ -30,44 +30,11 @@ if(!isset($_SESSION['role'])) {
 
 <body class="text-left">
     <div class="container col-10">
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-5 mt-3">
-            <a class="navbar-brand" href="#">🐾</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavBar" aria-controls="adminNavBar"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="adminNavBar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="cats.php">Cats
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dogs.php">Dogs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="exotics.php">Exotics
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.php">About
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <h1 class="invisible" data-label-for="catsTable">Cats</h1>        
+    <?php 
+        $currentNavPage = "Pets";
+        include "navigation.php"; 
+    ?>   
+       <h1 class="invisible" data-label-for="catsTable">Cats</h1>        
         <table data-url="cats/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="catsTable"></table>
         <h1 class="invisible" data-label-for="dogsTable">Dogs</h1>        
         <table data-url="dogs/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="dogsTable"></table>
@@ -120,8 +87,8 @@ if(!isset($_SESSION['role'])) {
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js" integrity="sha256-YN22NHB7zs5+LjcHWgk3zL0s+CRnzCQzDOFnndmUamY="
         crossorigin="anonymous"></script>
+    <script src="js/model.js"></script>
     <script src="js/controller.js"></script>
-    <script src="js/view.js"></script>
 </body>
 
 </html>

@@ -16,45 +16,11 @@
 
 <body class="text-left">
     <div class="container col-10">
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-5 mt-3">
-            <a class="navbar-brand" href="#">🐾</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavBar" aria-controls="adminNavBar"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="adminNavBar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home
-                            <span class="sr-only">(current)</span>
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cats.html">Cats
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dogs.html">Dogs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="exotics.html">Exotics
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <h1>Paws to Care</h1>
+    <?php 
+        $currentNavPage = "Home";
+        include "navigation.php"; 
+    ?>   
+       <h1>Paws to Care</h1>
         <div class="card-deck">
             <div class="card bg-dark text-light">
                 <div class="card-header h2">
@@ -84,7 +50,7 @@
                 </div>
                 <img class="card-img-top" src="images/van.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <p class="card-text">
+                   <p class="card-text">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non, quia!
                     </p>
                 </div>

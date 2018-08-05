@@ -16,44 +16,11 @@
 
 <body class="text-left">
     <div class="container col-10">
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-5 mt-3">
-            <a class="navbar-brand" href="#">🐾</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavBar" aria-controls="adminNavBar"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="adminNavBar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cats.html">Cats
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dogs.html">Dogs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="exotics.html">Exotics
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="about.html">About
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
+    <?php 
+        $currentNavPage = "About";
+        include "navigation.php"; 
+    ?>   
+ 
         <h1>Our Staff</h1>
         <div class="card-deck mb-5">
             <div class="card bg-dark text-light">

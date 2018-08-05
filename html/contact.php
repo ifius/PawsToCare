@@ -16,45 +16,11 @@
 
 <body class="text-left">
     <div class="container col-10">
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-5 mt-3">
-            <a class="navbar-brand" href="#">🐾</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavBar" aria-controls="adminNavBar"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="adminNavBar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cats.html">Cats
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dogs.html">Dogs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="exotics.html">Exotics
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="contact.html">Contact</a>
-                        <span class="sr-only">(current)</span>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-
+    <?php 
+        $currentNavPage = "Contact";
+        include "navigation.php"; 
+    ?>   
+ 
         <section>
             <h2>Address</h2>
             1118 Canyon Creek Pkwy, Spanish Fork, UT 84660
