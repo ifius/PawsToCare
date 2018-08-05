@@ -1,4 +1,18 @@
 <?php 
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+session_start();
+
+if(!isset($_SESSION['role'])) {
+  header("HTTP/1.1 401 Unauthorized");
+  exit();
+}
+
+$rowFilter = "JOIN catsOwners ON catsOwners.catsFk = cats.id AND 2 = 1";
+
+if($_SESSION['role'] === 'admin') $rowFilter = "JOIN catsOwners ON catsOwners.catsFk = cats.id AND 1 = 1";
+else if(isset($_SESSION['user'])) $rowFilter = ("JOIN catsOwners ON catsOwners.catsFk = cats.id AND catsOwners.ownersFk = " . $_SESSION['user']);
+
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
 
@@ -23,11 +37,12 @@ $filter['birthdate'] = $_GET['filter-birthdate'] . "%" ?: "%";
 
 
 $stmt = $pdo->prepare("
-SELECT id, name, breed, sex, shots, declawed, neutered,
+SELECT cats.id, name, breed, sex, shots, declawed, neutered,
 FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age,
 (SELECT COUNT(*) FROM catsOwners WHERE catsFk = cats.id) AS ownersCount,
 (SELECT COUNT(*) FROM catNotes WHERE catsFk = cats.id) AS notesCount
 FROM cats 
+$rowFilter
 WHERE 
 name LIKE :filterName
 AND breed LIKE :filterBreed
@@ -39,6 +54,7 @@ AND birthdate LIKE :filterBirthdate
 ORDER BY $order 
 LIMIT :page, :limit;
 ");
+
 $stmt->execute([
 'page' => $page*$limit, 
 'limit' => $limit,
@@ -55,6 +71,7 @@ $result = $stmt->fetchAll();
 $count = $pdo->prepare("
 SELECT count(*) AS totalCount
 FROM cats 
+$rowFilter
 WHERE 
 name LIKE :filterName
 AND breed LIKE :filterBreed

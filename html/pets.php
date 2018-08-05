@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['role'])) {
+  header( 'Location: login.php' );
+  exit();
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,8 +18,6 @@
         .clickable {
             cursor: pointer;
         }
-    </style>
-    <style>
  table { table-layout: fixed; }
  table th, table td { 
      overflow: hidden; 
@@ -34,45 +40,38 @@
             <div class="collapse navbar-collapse" id="adminNavBar">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home
+                        <a class="nav-link" href="index.php">Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="cats.html">Cats
+                        <a class="nav-link active" href="cats.php">Cats
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="dogs.html">Dogs
+                        <a class="nav-link" href="dogs.php">Dogs
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="exotics.html">Exotics
+                        <a class="nav-link" href="exotics.php">Exotics
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About
+                        <a class="nav-link" href="about.php">About
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="contact.php">Contact</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <!--
-                   <caption>
-                Showing
-                <span class="badge badge-pill badge-secondary" id="resultCount">0</span> results.
-            </caption>
-        -->
-
-        <table data-url="cats/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="catsTable">
-            <button id="prevPage">Previous</button>
-            <button id="nextPage">Next</button>
-        </table>
+        <h1 class="invisible" data-label-for="catsTable">Cats</h1>        
+        <table data-url="cats/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="catsTable"></table>
+        <h1 class="invisible" data-label-for="dogsTable">Dogs</h1>        
         <table data-url="dogs/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="dogsTable"></table>
+        <h1 class="invisible"  data-label-for="exoticsTable">Exotics</h1>        
         <table data-url="exotics/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="exoticsTable"></table>
     </div>
     <div class="modal fade" id="ownersModal" tabindex="-1" role="dialog" aria-labelledby="ownersModalLabel" aria-hidden="true">

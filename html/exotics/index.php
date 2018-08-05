@@ -1,4 +1,16 @@
 <?php 
+session_start();
+
+if(!isset($_SESSION['role'])) {
+  header("HTTP/1.1 401 Unauthorized");
+  exit();
+}
+
+$rowFilter = "JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND 2 = 1";
+
+if($_SESSION['role'] === 'admin') $rowFilter = "JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND 1 = 1";
+else if(isset($_SESSION['user'])) $rowFilter = ("JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND exoticsOwners.ownersFk = " . $_SESSION['user']);
+
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
 
@@ -21,11 +33,12 @@ $filter['neutered'] = $_GET['filter-neutered'] . "%" ?: "%";
 $filter['birthdate'] = $_GET['filter-birthdate'] . "%" ?: "%";
 
 $stmt = $pdo->prepare("
-SELECT id, name, species, sex, neutered,
+SELECT exotics.id, name, species, sex, neutered,
 FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age,
 (SELECT COUNT(*) FROM exoticsOwners WHERE exoticsFk = exotics.id) AS ownersCount,
 (SELECT COUNT(*) FROM exoticNotes WHERE exoticsFk = exotics.id) AS notesCount
 FROM exotics 
+$rowFilter
 WHERE 
 name LIKE :filterName
 AND species LIKE :filterSpecies
@@ -49,6 +62,7 @@ $result = $stmt->fetchAll();
 $count = $pdo->prepare("
 SELECT count(*) AS totalCount 
 FROM exotics 
+$rowFilter
 WHERE 
 name LIKE :filterName
 AND species LIKE :filterSpecies

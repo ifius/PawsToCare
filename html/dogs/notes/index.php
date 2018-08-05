@@ -1,4 +1,18 @@
 <?php 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+session_start();
+
+if(!isset($_SESSION['role'])) {
+  header("HTTP/1.1 401 Unauthorized");
+  exit();
+}
+
+$rowFilter = "JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND 2 = 1";
+
+if($_SESSION['role'] === 'admin') $rowFilter = "JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND 1 = 1";
+else if(isset($_SESSION['user'])) $rowFilter = ("JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND dogsOwners.ownersFk = " . $_SESSION['user']);
+
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
 
@@ -20,10 +34,11 @@ $filter['note'] = $_GET['note'] . "%" ?: "%";
 
 
 $stmt = $pdo->prepare("
-SELECT * 
+SELECT dogNotes.* 
 FROM dogNotes 
+$rowFilter
 WHERE 
-dogsFk = COALESCE(:filterDogsFk,dogsFk)
+dogNotes.dogsFk = COALESCE(:filterDogsFk,dogNotes.dogsFk)
 AND vetName LIKE :filterVetName
 AND date LIKE :filterDate
 AND note LIKE :filterNote

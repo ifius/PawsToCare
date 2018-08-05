@@ -1,6 +1,6 @@
 let dataStore = [];
 
-const animalTableHeaderRow = animal => {
+const animalTableHeaderRow = (animal,showOwners) => {
   animal = R.nth(0, animal);
   let row = tableRow({});
   let cells = [
@@ -14,14 +14,14 @@ const animalTableHeaderRow = animal => {
     R.has("declawed", animal) ? sortableCell("Declawed") : undefined,
     R.has("licensed", animal) ? sortableCell("Licensed") : undefined,
     R.has("weight", animal) ? sortableCell("Size") : undefined,
-    headerCell({}, "Owners"),
+    showOwners ? headerCell({}, "Owners") : undefined,
     headerCell({}, "Notes")
   ];
   for (cell of cells) row.append(cell);
   return row;
 };
 
-const animalTableFilterRow = animal => {
+const animalTableFilterRow = (animal,showOwners) => {
   animal = R.nth(0, animal);
   let row = tableRow({});
   let cells = [
@@ -53,15 +53,14 @@ const animalTableFilterRow = animal => {
           Giant: "G"
         })
       : undefined,
-    headerCell({}, ""),
+      showOwners ? headerCell({}, "") : undefined,
     headerCell({}, "")
   ];
   for (cell of cells) row.append(cell);
   return row;
 };
 
-const animalTableRow = animal => {
-  //console.log(animal);
+const animalTableRow = R.curry((showOwners, animal) => {
   let row = tableRow({ id: R.prop("id", animal) });
   let cells = [
     R.has("name", animal) ? defaultCell(R.prop("name", animal)) : undefined,
@@ -84,12 +83,12 @@ const animalTableRow = animal => {
     R.has("weight", animal)
       ? defaultCell(weightToSize(R.prop("weight", animal)))
       : undefined,
-      R.lte(1, R.prop('ownersCount', animal))
+      showOwners ? R.lte(1, R.prop('ownersCount', animal))
       ? ownersButton(
           { class: "btn owners", id: `owners-${animal.id}-${animal.name}` },
           "Owners"
         )
-      : defaultCell(""),
+      : defaultCell("") : undefined,
       R.lte(1, R.prop('notesCount', animal))
       ? notesButton(
       { class: "btn notes", id: `notes-${animal.id}-${animal.name}` },
@@ -98,7 +97,7 @@ const animalTableRow = animal => {
   ].filter(x => x !== undefined);
   for (cell of cells) row.append(cell);
   return row;
-};
+});
 
 const tableRow = properties => {
   return $("<tr>", properties);
@@ -197,19 +196,23 @@ const getTableData = (index, value) => {
   let table = $(value);
   let dataUrl = $(value).attr("data-url");
   $.ajax({ url: dataUrl }).done(data => {
+    if(R.isEmpty(data[0])) {
+      $(`h1[data-label-for=${$(table).attr('id')}]`).addClass('invisible');
+      return;
+    }
+    $(`h1[data-label-for=${$(table).attr('id')}]`).removeClass('invisible');
     storeData(table, data);
-    //$(table).attr("data", storeData(data));
     buildTableHeader(table);
     buildTable(table);
     addHandlers(table);
-  });
+  }).catch();
 };
 
 const buildTableHeader = table => {
   let data = R.nth(0, getData(table));
   //let data = R.nth(0, getData($(table).attr("data")));
-  let header = $("<thead>").append(animalTableHeaderRow(data));
-  header.append(animalTableFilterRow(data));
+  let header = $("<thead>").append(animalTableHeaderRow(data, $(table).attr('data-show-owners')!==undefined));
+  if($(table).attr('data-filterable')!==undefined) header.append(animalTableFilterRow(data, $(table).attr('data-show-owners')!==undefined));
   $(table).append(header);
   $(table)
     .find("th.sortable")
@@ -245,7 +248,7 @@ const buildTable = table => {
     )(filteredData);
   });
   let rows = $("<tbody>").append(
-    R.map(animalTableRow, paginate(page, 10)(filteredData))
+    R.map(animalTableRow($(table).attr('data-show-owners')!==undefined), paginate(page, 10)(filteredData))
   );
   $(table).append(rows);
 };
@@ -273,7 +276,6 @@ const showOwnersModal = event => {
     .parents("table")
     .attr("data-url");
   dataUrl = R.replace(/\/.*/g, "/owners", dataUrl);
-  //console.log(dataUrl);
   $.ajax({ url: `${dataUrl}` }).done(data => {
     alert(data);
   });
@@ -288,18 +290,18 @@ const showNotesModal = event => {
     .attr("data-url");
   let animalType = R.replace(/s\/.*/g, "", dataUrl);
   dataUrl = R.replace(/\/.*/g, `/notes/?${animalType}=${id}`, dataUrl);
-  //console.log(dataUrl);
   $.ajax({ url: `${dataUrl}` }).done(data => {
     if (R.not(R.isEmpty(data))) alert(JSON.stringify(data));
   });
 };
 
 const sortTable = event => {
-  // Reset page number
   let span = $(event.target).is("span")
     ? $(event.target)
     : $(event.target).find("span");
   let table = $(span).parents("table");
+  // Reset page number
+$(table).attr('data-page',1);
   let sortFunction = R.replace(/Sort/g, "", $(span).attr("id"));
   let data = getData(table);
   //let data = getData($(table).attr("data"));
