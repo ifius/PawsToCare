@@ -322,30 +322,6 @@ $(table).attr('data-page',1);
 
 $(() => {
   $("table[data-url]").each(getTableData);
-  $("button#prevPage").click(event => {
-    let table = $("#catsTable");
-    $(table).attr(
-      "data-page",
-      R.defaultTo(1, Number($(table).attr("data-page")) - 1)
-    );
-    $(table)
-      .find("tbody")
-      .remove();
-    buildTable($(table));
-    addHandlers($(table));
-  });
-  $("button#nextPage").click(event => {
-    let table = $("#catsTable");
-    $(table).attr(
-      "data-page",
-      R.defaultTo(1, Number($(table).attr("data-page")) + 1)
-    );
-    $(table)
-      .find("tbody")
-      .remove();
-    buildTable($(table));
-    addHandlers($(table));
-  });
 });
 
 function debounce(func, wait, immediate) {
@@ -363,3 +339,19 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
+
+// <?php
+// $disabled = $page === 0 ? " disabled" : "";
+// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(-1, true) . '">Prev</a></li>';
+// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(1, false) . '">First</a></li>';
+// for($p = $totalCount['rows']/10; $p < $totalCount['rows']; $p+=($totalCount['rows']/10)) {
+//     $active = ($p/$limit) === ($page+1) ? " active" : "";
+//     echo '<li class="page-item' . $active . '"><a class="page-link" href="owners.php?' . pageLink($p/$limit, false) . '">' . $p/$limit . '</a></li>';
+// }
+// $disabled = $page === ($totalCount['rows'] / $limit) - 1 ? " disabled" : "";
+// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(($totalCount['rows'] / $limit), false) . '">Last</a></li>';
+// echo '<li class="page-item' . $disabled .'"><a class="page-link" href="owners.php?' . pageLink(1, true) . '">Next</a></li>';
+// echo "</ul></nav>";
+// echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
+// echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
+// ?>

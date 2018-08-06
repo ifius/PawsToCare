@@ -38,6 +38,7 @@ $pdo = new PDO($databaseDsn, $databaseUser, $databasePassword, $databaseOpt);
 	$_SESSION['role'] = 'owner';
 	$_SESSION['user'] = $result['ownersFk'];
   }
+  $_SESSION['username'] = $result['username'];
   header('Content-Type: application/json');
   
   $response['id'] = $_SESSION['user'];

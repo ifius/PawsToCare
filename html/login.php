@@ -31,18 +31,17 @@ if(isset($_SESSION['role'])) {
     ?>   
        <div id="login" class="bg-dark p-5">
                             <h3 class="text-left text-light">Login</h3>
-                            <div class="form-group">
+                            <div class="form-group w-50">
                                 <label for="username" class="text-light">Username:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group w-50">
                                 <label for="password" class="text-light">Password:</label><br>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <button id="login" class="btn btn-primary btn-md">Login</button>
                             </div>
-                        <!--</form>-->
     </div>
    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>

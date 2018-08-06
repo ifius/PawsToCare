@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['role'])) {
-  header( 'Location: login.php' );
+if($_SESSION['role']!=='owner') {
+  header( 'Location: index.php' );
   exit();
 }
 ?>

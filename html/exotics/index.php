@@ -21,7 +21,7 @@ function addDescending($value) {
   return $value ." desc";
 }
 $orders = array_merge(array_map("addDescending",$orders),$orders);
-$order = $orders[array_search($_GET['sort'],$orders)] ?: 'id';
+$order = array_search($_GET['sort'],$orders) ? $_GET['sort'] : 'name';
 $page = $_GET['page']?:1;
 $page = $page - 1;
 $limit = $_GET['limit']?:10;

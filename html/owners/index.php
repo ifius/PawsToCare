@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if($_SESSION['role'] !== 'admin') {
+  header("HTTP/1.1 401 Unauthorized");
+  exit();
+}
+
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
 
@@ -9,7 +16,7 @@ function addDescending($value) {
   return $value ." desc";
 }
 $orders = array_merge(array_map("addDescending",$orders),$orders);
-$order = $orders[array_search($_GET['sort'],$orders)] ?: 'id';
+$order = array_search($_GET['sort'],$orders) ? $_GET['sort'] : 'lname';
 $page = $_GET['page']?:1;
 $page = $page - 1;
 $limit = $_GET['limit']?:10;

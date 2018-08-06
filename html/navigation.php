@@ -10,6 +10,7 @@
         "Contact" => ["url" => "contact.php"],
     ];
     session_start();
+    if(isset($_SESSION['username'])) $username = $_SESSION['username'];
 ?>
 
 <nav class="navbar navbar-expand navbar-dark bg-dark mb-5 mt-3">
@@ -37,11 +38,7 @@
             if(!isset($role)) echo '<li class="nav-item"><a class="nav-link' . $active . '" href="login.php">Login</a></li>';
             else echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
         ?>
-  <!--          <li class="nav-item">
-                <a class="nav-link active" href="cats.html">Cats
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>-->
         </ul>
     </div>
+    <?php if(isset($username)) echo "<span class=\"text-right text-light\">$username</span>"; ?>
 </nav>
