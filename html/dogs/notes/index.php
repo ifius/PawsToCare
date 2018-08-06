@@ -8,10 +8,9 @@ if(!isset($_SESSION['role'])) {
   exit();
 }
 
-$rowFilter = "JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND 2 = 1";
-
-if($_SESSION['role'] === 'admin') $rowFilter = "JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND 1 = 1";
-else if(isset($_SESSION['user'])) $rowFilter = ("JOIN dogsOwners ON dogsOwners.dogsFk = dogNotes.dogsFk AND dogsOwners.ownersFk = " . $_SESSION['user']);
+$rowFilter = "AND 2 = 1";
+if($_SESSION['role'] === 'admin') $rowFilter = "AND 1 = 1";
+else if(isset($_SESSION['user'])) $rowFilter = ("AND dogsFk IN (SELECT dogsFk FROM dogsOwners WHERE ownersFk = " . $_SESSION['user']);
 
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
@@ -37,12 +36,12 @@ $filter['note'] = $_GET['note'] . "%" ?: "%";
 $stmt = $pdo->prepare("
 SELECT dogNotes.* 
 FROM dogNotes 
-$rowFilter
 WHERE 
 dogNotes.dogsFk = COALESCE(:filterDogsFk,dogNotes.dogsFk)
 AND vetName LIKE :filterVetName
 AND date LIKE :filterDate
 AND note LIKE :filterNote
+$rowFilter
 ORDER BY $order 
 LIMIT :page, :limit;
 ");

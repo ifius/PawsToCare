@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if($_SESSION['role'] !== 'admin') {
+  header("HTTP/1.1 401 Unauthorized");
+  exit();
+}
+
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
 

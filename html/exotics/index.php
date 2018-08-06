@@ -6,10 +6,9 @@ if(!isset($_SESSION['role'])) {
   exit();
 }
 
-$rowFilter = "JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND 2 = 1";
-
-if($_SESSION['role'] === 'admin') $rowFilter = "JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND 1 = 1";
-else if(isset($_SESSION['user'])) $rowFilter = ("JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id AND exoticsOwners.ownersFk = " . $_SESSION['user']);
+$rowFilter = "AND 2 = 1";
+if($_SESSION['role'] === 'admin') $rowFilter = "AND 1 = 1";
+else if(isset($_SESSION['user'])) $rowFilter = ("AND id IN (SELECT exoticsFk FROM exoticsOwners WHERE ownersFk = " . $_SESSION['user']);
 
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';
@@ -38,13 +37,13 @@ FLOOR(DATEDIFF(NOW(),birthdate)/365) AS age,
 (SELECT COUNT(*) FROM exoticsOwners WHERE exoticsFk = exotics.id) AS ownersCount,
 (SELECT COUNT(*) FROM exoticNotes WHERE exoticsFk = exotics.id) AS notesCount
 FROM exotics 
-$rowFilter
 WHERE 
 name LIKE :filterName
 AND species LIKE :filterSpecies
 AND sex LIKE :filterSex
 AND neutered LIKE :filterNeutered
 AND birthdate LIKE :filterBirthdate
+$rowFilter
 ORDER BY $order 
 LIMIT :page, :limit;
 ");
@@ -62,13 +61,13 @@ $result = $stmt->fetchAll();
 $count = $pdo->prepare("
 SELECT count(*) AS totalCount 
 FROM exotics 
-$rowFilter
 WHERE 
 name LIKE :filterName
 AND species LIKE :filterSpecies
 AND sex LIKE :filterSex
 AND neutered LIKE :filterNeutered
 AND birthdate LIKE :filterBirthdate
+$rowFilter
 ");
 $count->execute([
 'filterName' => $filter['name'],
