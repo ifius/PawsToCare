@@ -65,13 +65,13 @@ if($_SESSION['role'] !== 'admin') {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="notesModalLabel">Cat Notes</h5>
+                    <h5 class="modal-title" id="notesModalLabel"><span id="notesModalHeader"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Cat notes are not implemented.
+                    <div id="notesModalContent"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

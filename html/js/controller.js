@@ -291,7 +291,13 @@ const showNotesModal = event => {
   let animalType = R.replace(/s\/.*/g, "", dataUrl);
   dataUrl = R.replace(/\/.*/g, `/notes/?${animalType}=${id}`, dataUrl);
   $.ajax({ url: `${dataUrl}` }).done(data => {
-    if (R.not(R.isEmpty(data))) alert(JSON.stringify(data));
+    if (R.not(R.isEmpty(data))) {
+      $('#notesModalHeader').text("Notes");
+      let content = "";
+      data.map(note => {content += `<u>${note.vetName} - ${note.date}</u><br>${note.note}<br><br>`});
+      $("#notesModalContent").html(content);
+      $("#notesModal").modal();
+    }
   });
 };
 
