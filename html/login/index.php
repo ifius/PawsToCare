@@ -11,7 +11,7 @@ $pdo = new PDO($databaseDsn, $databaseUser, $databasePassword, $databaseOpt);
     exit();
   }
 
-  $username = $_POST["username"];
+  $username = strtolower($_POST["username"]);
   $password = $_POST["password"];
   $username = trim($username);
   $password = trim($password);

@@ -276,8 +276,15 @@ const showOwnersModal = event => {
     .parents("table")
     .attr("data-url");
   dataUrl = R.replace(/\/.*/g, "/owners", dataUrl);
+  dataUrl += `?id=${$(event.target).attr('id').split('-')[1]}`; 
   $.ajax({ url: `${dataUrl}` }).done(data => {
-    alert(data);
+    if (R.not(R.isEmpty(data))) {
+      $('#ownersModalHeader').text("Owners");
+      let content = "";
+      data.map(owner => {content += `${owner.lname}, ${owner.fname} - ${owner.city}, ${owner.st} ${owner.zip}<br><br>`});
+      $("#ownersModalContent").html(content);
+      $("#ownersModal").modal();
+    }
   });
 };
 

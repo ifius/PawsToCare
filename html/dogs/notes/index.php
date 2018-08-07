@@ -1,6 +1,6 @@
 <?php 
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+//  error_reporting(E_ALL);
+//  ini_set('display_errors', 1);
 session_start();
 
 if(!isset($_SESSION['role'])) {
@@ -10,7 +10,7 @@ if(!isset($_SESSION['role'])) {
 
 $rowFilter = "AND 2 = 1";
 if($_SESSION['role'] === 'admin') $rowFilter = "AND 1 = 1";
-else if(isset($_SESSION['user'])) $rowFilter = ("AND dogsFk IN (SELECT dogsFk FROM dogsOwners WHERE ownersFk = " . $_SESSION['user']);
+else if(isset($_SESSION['user'])) $rowFilter = ("AND dogsFk IN (SELECT dogsFk FROM dogsOwners WHERE ownersFk = " . $_SESSION['user'] . ")" );
 
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';

@@ -10,7 +10,7 @@ if(!isset($_SESSION['role'])) {
 
 $rowFilter = "AND 2 = 1";
 if($_SESSION['role'] === 'admin') $rowFilter = "AND 1 = 1";
-else if(isset($_SESSION['user'])) $rowFilter = ("AND id IN (SELECT catsFk FROM catsOwners WHERE ownersFk = " . $_SESSION['user']);
+else if(isset($_SESSION['user'])) $rowFilter = ("AND id IN (SELECT catsFk FROM catsOwners WHERE ownersFk = " . $_SESSION['user'] .")");
 
 include '/etc/pawsToCare.config.php';
 include '/etc/webuser.password.php';

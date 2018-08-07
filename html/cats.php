@@ -46,13 +46,13 @@ if($_SESSION['role'] !== 'admin') {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ownersModalLabel">Cat Owners</h5>
+                    <h5 class="modal-title" id="ownersModalLabel"><span id="ownersModalHeader"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Cat owners are not implemented.
+                    <div id="ownersModalContent"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

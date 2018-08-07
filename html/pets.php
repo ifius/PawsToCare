@@ -41,36 +41,17 @@ if($_SESSION['role']!=='owner') {
         <h1 class="invisible"  data-label-for="exoticsTable">Exotics</h1>        
         <table data-url="exotics/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="exoticsTable"></table>
     </div>
-    <div class="modal fade" id="ownersModal" tabindex="-1" role="dialog" aria-labelledby="ownersModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ownersModalLabel">Cat Owners</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Cat owners are not implemented.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="notesModalLabel">Cat Notes</h5>
+                    <h5 class="modal-title" id="notesModalLabel"><span id="notesModalHeader"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Cat notes are not implemented.
+                    <div id="notesModalContent"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
