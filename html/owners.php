@@ -1,4 +1,6 @@
 <?php 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 session_start();
 
 if($_SESSION['role'] !== 'admin') {
@@ -78,8 +80,6 @@ $count->execute([
 
 $totalCount = $count->fetch();
 
-$pdo = null;
-
 function sortLink($column) {
     $param = $_GET;
     if($param['sort'] === $column)  $param['sort'] .= " desc";
@@ -103,6 +103,49 @@ function showArrow($column) {
     if(preg_match("/^$column/", $_GET['sort']) === 1 && preg_match('/desc$/', $_GET['sort']) == 1 ) $arrow = "▼";
     if($arrow) return "<span class=\"d-inline float-right\">$arrow</span>";
 }
+
+$petsStmt = $pdo->prepare("
+WITH pets(id, petType, name, sex, petSubType, birthdate) AS 
+(
+SELECT catsOwners.id, 'Cat', cats.name, cats.sex, cats.breed, cats.birthdate 
+FROM cats JOIN catsOwners ON catsOwners.catsFk = cats.id
+UNION ALL
+SELECT dogsOwners.id, 'Dog', dogs.name, dogs.sex, dogs.breed, dogs.birthdate
+FROM dogs JOIN dogsOwners ON dogsOwners.dogsFk = dogs.id
+UNION ALL
+SELECT exoticsOwners.id, 'Exotic', exotics.name, exotics.sex, exotics.species, exotics.birthdate
+FROM exotics JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id
+)
+
+SELECT * FROM pets 
+JOIN
+(
+    SELECT id FROM owners
+    WHERE
+    fname LIKE :filterFname
+    AND lname LIKE :filterLname
+    AND add1 LIKE :filterAdd1
+    AND IFNULL(add2,1) LIKE :filterAdd2
+    AND city LIKE :filterCity
+    AND st LIKE :filterSt
+    AND zip LIKE :filterZip 
+    ORDER BY $order LIMIT :page, :limit
+) owners ON owners.id = pets.id;
+");
+
+
+$petsStmt->execute(['page' => $page*$limit, 'limit' => $limit, 
+'filterFname' => $filter['fname'],
+'filterLname' => $filter['lname'],
+'filterAdd1' => $filter['add1'],
+'filterAdd2' => $filter['add2'],
+'filterCity' => $filter['city'],
+'filterSt' => $filter['st'],
+'filterZip' => $filter['zip']
+]);
+$petResult = $petsStmt->fetchAll();
+
+$pdo = null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -158,7 +201,7 @@ function showArrow($column) {
             echo "<td>" . $row['city'] . "</td>";
             echo "<td>" . $row['st'] . "</td>";
             echo "<td>" . $row['zip'] . "</td>";
-            echo '<td><button class="btn" id="pets_' . $row['id'] . '">Pets</button>';
+            echo '<td><button class="btn" id="pets_' . $row['id'] . '" data-toggle="modal" data-target="#ownerModal-' . $row['id'] . '">Pets</button>';
             echo "</tr>";
         }
     ?>
@@ -180,7 +223,47 @@ function showArrow($column) {
         echo "</ul></nav>";
         echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
         echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
-    ?>
+
+        //print_r($petResult);
+    
+        foreach($result as $row) {
+        ?>
+
+       <div class="modal fade" id="ownerModal-<?php echo $row['id']; ?>" tabindex="-1" role="dialog" 
+       aria-labelledby="petsModalLabel-<?php echo $row['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="petsModal-<?php echo $row['id']; echo '">' . $row['fname'] . ' ' . $row['lname']; ?> Pets</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered table-dark">
+                    <?php 
+                        foreach($petResult as $pet) {
+                            if($pet['id'] === $row['id']) {
+                                echo "<tr>"; 
+                                echo "<td>" . $pet['petType'] . "</td>";
+                                echo "<td>" . $pet['petSubType'] . "</td>";
+                                echo "<td>" . $pet['name'] . "</td>";
+                                echo "<td>" . $pet['sex' ] . "</td>";
+                                echo "<td>" . $pet['birthdate'] . "</td>";
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
