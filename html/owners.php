@@ -23,6 +23,7 @@ $page = $_GET['page']?:1;
 $page = $page - 1;
 $limit = $_GET['limit']?:10;
 
+
 $filter['fname'] = $_GET['filter-fname'] . "%" ?: "%";
 $filter['lname'] = $_GET['filter-lname'] . "%" ?: "%";
 $filter['add1'] = $_GET['filter-add1'] . "%" ?: "%";
@@ -30,7 +31,6 @@ $filter['add2'] = $_GET['filter-add2'] . "%" ?: "%";
 $filter['city'] = $_GET['filter-city'] . "%" ?: "%";
 $filter['st'] = $_GET['filter-st'] . "%" ?: "%";
 $filter['zip'] = $_GET['filter-zip'] . "%" ?: "%";
-
 
 $stmt = $pdo->prepare("
 SELECT * FROM owners WHERE 
@@ -178,8 +178,6 @@ $pdo = null;
     <?php 
         $currentNavPage = "Owners";
         include "navigation.php"; 
-
-        echo "<tr>";
             echo "<td><a href=\"owners.php?" . sortLink("lname") . "\">Last Name" . showArrow("lname") . "</a></td>";
             echo "<td><a href=\"owners.php?" . sortLink("fname") . "\">First Name" . showArrow("fname") . "</a></td>";
             echo "<td><a href=\"owners.php?" . sortLink("add1") . "\">Address 1" . showArrow("add1") . "</a></td>";
@@ -189,7 +187,24 @@ $pdo = null;
             echo "<td><a href=\"owners.php?" . sortLink("zip") . "\">Zip" . showArrow("zip") . "</a></td>";
         echo "<td></td>";
         ?>
-        </tr></thead>
+        </tr>
+        <tr>
+            <form method="GET" action="owners.php">
+            <td><input type="text" class="form-control" name="filter-lname" placeHolder="Filter" value="<?php echo $_GET['filter-lname']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-fname" placeHolder="Filter"  value="<?php echo $_GET['filter-fname']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-add1" placeHolder="Filter"  value="<?php echo $_GET['filter-add1']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-add2" placeHolder="Filter"  value="<?php echo $_GET['filter-add2']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-city" placeHolder="Filter"  value="<?php echo $_GET['filter-city']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-st" placeHolder="Filter"  value="<?php echo $_GET['filter-st']; ?>"></td>
+            <td><input type="text" class="form-control" name="filter-zip" placeHolder="Filter"  value="<?php echo $_GET['filter-zip']; ?>"></td>
+            <td>
+            <button type="submit" class="btn">Filter Results</button>
+            <input type="hidden" name="sort" value="<?php $_GET['sort'] ?>">
+            <input type="hidden" name="page" value="<?php $_GET['page'] ?>">
+            </td>
+            </form>
+        </tr>
+        </thead>
         <tbody>
         <?php       
         foreach($result as $row) {
@@ -210,18 +225,20 @@ $pdo = null;
     <nav aria-label="Owners page navigation">
     <ul class="pagination pagination-dark">
     <?php
+    if($totalCount['rows'] > 10) {
         $disabled = $page === 0 ? " disabled" : "";
         echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(-1, true) . '">Prev</a></li>';
         echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(1, false) . '">First</a></li>';
-        for($p = $totalCount['rows']/10; $p < $totalCount['rows']; $p+=($totalCount['rows']/10)) {
+        for($p = ($page-10)*$limit <= 0 ? $limit : ($page-10) * $limit; $p <= round($totalCount['rows']/$limit)*$limit && $p <= ($page+10)*$limit; $p+=$limit) {
             $active = ($p/$limit) === ($page+1) ? " active" : "";
             echo '<li class="page-item' . $active . '"><a class="page-link" href="owners.php?' . pageLink($p/$limit, false) . '">' . $p/$limit . '</a></li>';
         }
-        $disabled = $page === ($totalCount['rows'] / $limit) - 1 ? " disabled" : "";
-        echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(($totalCount['rows'] / $limit), false) . '">Last</a></li>';
+        $disabled = $page == round($totalCount['rows']/$limit) - 1 ? " disabled" : "";
+        echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(round($totalCount['rows']/$limit), false) . '">Last</a></li>';
         echo '<li class="page-item' . $disabled .'"><a class="page-link" href="owners.php?' . pageLink(1, true) . '">Next</a></li>';
         echo "</ul></nav>";
         echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
+    } else { echo "Showing <span class=\"badge badge-pill badge-secondary\">" . $totalCount['rows'] . "</span> of "; }
         echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
 
         //print_r($petResult);

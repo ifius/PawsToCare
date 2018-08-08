@@ -353,18 +353,27 @@ function debounce(func, wait, immediate) {
   };
 }
 
-// <?php
-// $disabled = $page === 0 ? " disabled" : "";
-// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(-1, true) . '">Prev</a></li>';
-// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(1, false) . '">First</a></li>';
-// for($p = $totalCount['rows']/10; $p < $totalCount['rows']; $p+=($totalCount['rows']/10)) {
-//     $active = ($p/$limit) === ($page+1) ? " active" : "";
-//     echo '<li class="page-item' . $active . '"><a class="page-link" href="owners.php?' . pageLink($p/$limit, false) . '">' . $p/$limit . '</a></li>';
-// }
-// $disabled = $page === ($totalCount['rows'] / $limit) - 1 ? " disabled" : "";
-// echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(($totalCount['rows'] / $limit), false) . '">Last</a></li>';
-// echo '<li class="page-item' . $disabled .'"><a class="page-link" href="owners.php?' . pageLink(1, true) . '">Next</a></li>';
-// echo "</ul></nav>";
-// echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
-// echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
-// ?>
+const changePage = (table, page) => {
+  $(table).attr('data-page',page);
+    $(table)
+  .find("tbody")
+  .remove();
+buildTable($(table));
+addHandlers($(table));
+}
+
+// if($totalCount['rows'] > 10) {
+//   $disabled = $page === 0 ? " disabled" : "";
+//   echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(-1, true) . '">Prev</a></li>';
+//   echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(1, false) . '">First</a></li>';
+//   for($p = ($page-10)*$limit <= 0 ? $limit : ($page-10) * $limit; $p <= round($totalCount['rows']/$limit)*$limit && $p <= ($page+10)*$limit; $p+=$limit) {
+//       $active = ($p/$limit) === ($page+1) ? " active" : "";
+//       echo '<li class="page-item' . $active . '"><a class="page-link" href="owners.php?' . pageLink($p/$limit, false) . '">' . $p/$limit . '</a></li>';
+//   }
+//   $disabled = $page == round($totalCount['rows']/$limit) - 1 ? " disabled" : "";
+//   echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(round($totalCount['rows']/$limit), false) . '">Last</a></li>';
+//   echo '<li class="page-item' . $disabled .'"><a class="page-link" href="owners.php?' . pageLink(1, true) . '">Next</a></li>';
+//   echo "</ul></nav>";
+//   echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
+// } else { echo "Showing <span class=\"badge badge-pill badge-secondary\">" . $totalCount['rows'] . "</span> of "; }
+//   echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
