@@ -167,61 +167,56 @@ $pdo = null;
      white-space: nowrap;  
     text-overflow: ellipsis;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(8,auto);
+    grid-gap: 1em;
+}
+
 </style>
     <title>Paws to Care</title>
 </head>
 
 <body class="text-left">
     <div class="container col-10">
-    <table class="table table-striped table-bordered table-dark">
-    <thead><tr>
     <?php 
         $currentNavPage = "Owners";
         include "navigation.php"; 
-            echo "<td><a href=\"owners.php?" . sortLink("lname") . "\">Last Name" . showArrow("lname") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("fname") . "\">First Name" . showArrow("fname") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("add1") . "\">Address 1" . showArrow("add1") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("add2") . "\">Address 2" . showArrow("add2") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("city") . "\">City" . showArrow("city") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("st") . "\">State" . showArrow("st") . "</a></td>";
-            echo "<td><a href=\"owners.php?" . sortLink("zip") . "\">Zip" . showArrow("zip") . "</a></td>";
-        echo "<td></td>";
-        ?>
-        </tr>
-        <tr>
-            <form method="GET" action="owners.php">
-            <td><input type="text" class="form-control" name="filter-lname" placeHolder="Filter" value="<?php echo $_GET['filter-lname']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-fname" placeHolder="Filter"  value="<?php echo $_GET['filter-fname']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-add1" placeHolder="Filter"  value="<?php echo $_GET['filter-add1']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-add2" placeHolder="Filter"  value="<?php echo $_GET['filter-add2']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-city" placeHolder="Filter"  value="<?php echo $_GET['filter-city']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-st" placeHolder="Filter"  value="<?php echo $_GET['filter-st']; ?>"></td>
-            <td><input type="text" class="form-control" name="filter-zip" placeHolder="Filter"  value="<?php echo $_GET['filter-zip']; ?>"></td>
-            <td>
-            <button type="submit" class="btn">Filter Results</button>
-            <input type="hidden" name="sort" value="<?php $_GET['sort'] ?>">
-            <input type="hidden" name="page" value="<?php $_GET['page'] ?>">
-            </td>
-            </form>
-        </tr>
-        </thead>
-        <tbody>
-        <?php       
-        foreach($result as $row) {
-            echo "<tr>";
-            echo "<td>" . $row['lname'] . "</td>";
-            echo "<td>" . $row['fname'] . "</td>";
-            echo "<td>" . $row['add1'] . "</td>";
-            echo "<td>" . $row['add2'] . "</td>";
-            echo "<td>" . $row['city'] . "</td>";
-            echo "<td>" . $row['st'] . "</td>";
-            echo "<td>" . $row['zip'] . "</td>";
-            echo '<td><button class="btn" id="pets_' . $row['id'] . '" data-toggle="modal" data-target="#ownerModal-' . $row['id'] . '">Pets</button>';
-            echo "</tr>";
-        }
-    ?>
-    </tbody> 
-    </table>
+        echo '<form method="GET" action="owners.php">';
+        echo '<div class="grid mb-5">';
+        echo "<div><a href=\"owners.php?" . sortLink("lname") . "\">Last Name" . showArrow("lname") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("fname") . "\">First Name" . showArrow("fname") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("add1") . "\">Address 1" . showArrow("add1") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("add2") . "\">Address 2" . showArrow("add2") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("city") . "\">City" . showArrow("city") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("st") . "\">State" . showArrow("st") . "</a></div>";
+        echo "<div><a href=\"owners.php?" . sortLink("zip") . "\">Zip" . showArrow("zip") . "</a></div>";
+        echo "<div></div>"
+   ?>
+        <div><input type="text" class="form-control" name="filter-lname" placeHolder="Filter" value="<?php echo $_GET['filter-lname']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-fname" placeHolder="Filter"  value="<?php echo $_GET['filter-fname']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-add1" placeHolder="Filter"  value="<?php echo $_GET['filter-add1']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-add2" placeHolder="Filter"  value="<?php echo $_GET['filter-add2']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-city" placeHolder="Filter"  value="<?php echo $_GET['filter-city']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-st" placeHolder="Filter"  value="<?php echo $_GET['filter-st']; ?>"></div>
+        <div><input type="text" class="form-control" name="filter-zip" placeHolder="Filter"  value="<?php echo $_GET['filter-zip']; ?>"></div>
+        <div><button type="submit" class="btn">Filter Results</button></div>
+        <input type="hidden" name="sort" value="<?php $_GET['sort'] ?>">
+        <input type="hidden" name="page" value="<?php $_GET['page'] ?>">
+    <?php       
+    foreach($result as $row) {
+        echo '<div>' . $row['lname'] . "</div>";
+        echo '<div>' . $row['fname'] . "</div>";
+        echo '<div>' . $row['add1'] . "</div>";
+        echo '<div>' . $row['add2'] . "</div>";
+        echo '<div>' . $row['city'] . "</div>";
+        echo '<div>' . $row['st'] . "</div>";
+        echo '<div>' . $row['zip'] . "</div>";
+        echo '<div><button type="button" class="btn" id="pets_' . $row['id'] . '" onClick="$(\'#ownerModal-' . $row['id'] . '\').modal();">Pets</button></div>';
+    }
+    ?></div></form>
+    
     <nav aria-label="Owners page navigation">
     <ul class="pagination pagination-dark">
     <?php
@@ -237,11 +232,10 @@ $pdo = null;
         echo '<li class="page-item' .$disabled . '"><a class="page-link" href="owners.php?' . pageLink(round($totalCount['rows']/$limit), false) . '">Last</a></li>';
         echo '<li class="page-item' . $disabled .'"><a class="page-link" href="owners.php?' . pageLink(1, true) . '">Next</a></li>';
         echo "</ul></nav>";
-        echo "Showing <span class=\"badge badge-pill badge-secondary\">" . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
-    } else { echo "Showing <span class=\"badge badge-pill badge-secondary\">" . $totalCount['rows'] . "</span> of "; }
-        echo "<span class=\"badge badge-secondary\">" . $totalCount['rows'] . "</span><br>"; 
-
-        //print_r($petResult);
+        echo "Showing <span class=\"badge badge-pill badge-secondary\"> " . (($page * $limit) + 1) . "-" . ($page+1) * $limit . "</span> of ";
+    } else { echo "Showing <span class=\"badge badge-pill badge-secondary\"> " . $totalCount['rows'] . "</span> of "; }
+        echo "<span class=\"badge badge-secondary\"> " . $totalCount['rows'] . "</span><br>"; 
+        echo "</ul></nav>";
     
         foreach($result as $row) {
         ?>
