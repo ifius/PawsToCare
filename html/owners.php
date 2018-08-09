@@ -107,13 +107,13 @@ function showArrow($column) {
 $petsStmt = $pdo->prepare("
 WITH pets(id, petType, name, sex, petSubType, birthdate) AS 
 (
-SELECT catsOwners.id, 'Cat', cats.name, cats.sex, cats.breed, cats.birthdate 
+SELECT catsOwners.ownersFk, 'Cat', cats.name, cats.sex, cats.breed, cats.birthdate 
 FROM cats JOIN catsOwners ON catsOwners.catsFk = cats.id
 UNION ALL
-SELECT dogsOwners.id, 'Dog', dogs.name, dogs.sex, dogs.breed, dogs.birthdate
+SELECT dogsOwners.ownersFk, 'Dog', dogs.name, dogs.sex, dogs.breed, dogs.birthdate
 FROM dogs JOIN dogsOwners ON dogsOwners.dogsFk = dogs.id
 UNION ALL
-SELECT exoticsOwners.id, 'Exotic', exotics.name, exotics.sex, exotics.species, exotics.birthdate
+SELECT exoticsOwners.ownersFk, 'Exotic', exotics.name, exotics.sex, exotics.species, exotics.birthdate
 FROM exotics JOIN exoticsOwners ON exoticsOwners.exoticsFk = exotics.id
 )
 
