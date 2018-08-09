@@ -257,6 +257,7 @@ const buildTable = table => {
   );
   $(table).append(rows);
   storeData(`${$(table).attr('id')}-sorted`, filteredData);
+  addTitles();
 };
 
 const addHandlers = table => {
@@ -425,4 +426,21 @@ const changePage = (page, table) => {
   addHandlers($(table));
   let nav = $(`[data-pagination-for="#${$(table).attr('id')}"]`);
   buildPagination(nav);
+};
+
+const addTitles = () => {
+  $('th').each((a,b) => {
+    if(R.contains('Name', b.innerText)) $(b).attr('title',"The name of the animal");
+    if(R.contains('Age', b.innerText)) $(b).attr('title',"The age of the animal (years)");
+    if(R.contains('Sex', b.innerText)) $(b).attr('title',"The sex of the animal (Male/Female/Unknown)");
+    if(R.contains('Breed', b.innerText)) $(b).attr('title',"The breed of the animal");
+    if(R.contains('Species', b.innerText)) $(b).attr('title',"The species of the animal");
+    if(R.contains('Shots', b.innerText)) $(b).attr('title',"Have all applicable shots been administered?");
+    if(R.contains('Neutered', b.innerText)) $(b).attr('title',"Has the animal been neutered?");
+    if(R.contains('Declawed', b.innerText)) $(b).attr('title',"Is the cat declawed?");
+    if(R.contains('Licensed', b.innerText)) $(b).attr('title',"Do we have a valid license on file for this animal?");
+    if(R.contains('Size', b.innerText)) $(b).attr('title',"The weight of the animal ([S] <20lbs. [M] <50lbs.[L] <100lbs. [G] >100lbs.");
+    if(R.contains('Owners', b.innerText)) $(b).attr('title',"Who owns this animal?");
+    if(R.contains('Notes', b.innerText)) $(b).attr('title',"Vet notes for this animal");
+  });
 };
