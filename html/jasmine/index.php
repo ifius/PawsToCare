@@ -28,8 +28,8 @@ if($_SESSION['role']!=='admin') {
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js" integrity="sha256-YN22NHB7zs5+LjcHWgk3zL0s+CRnzCQzDOFnndmUamY="
         crossorigin="anonymous"></script>
-    <script src="/js/model.js"></script>
-    <script src="/js/controller.js"></script>
+    <script src="../js/model.js"></script>
+    <script src="../js/controller.js"></script>
 
   <!-- include spec files here... -->
   <script src="spec/spec.js"></script>
