@@ -36,11 +36,8 @@ if($_SESSION['role'] !== 'admin') {
         include "navigation.php"; 
         ?>   
         <table data-url="cats/?limit=1000&sort=name" class="table table-striped table-bordered table-dark" id="catsTable" data-filterable data-show-owners>
-  <!--      <caption>
-                Showing
-                <span class="badge badge-pill badge-secondary" id="resultCount">0</span> results.
-            </caption>-->
         </table>
+        <div id="paginationNav" data-pagination-for="#catsTable"></div>
     </div>
     <div class="modal fade" id="ownersModal" tabindex="-1" role="dialog" aria-labelledby="ownersModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -90,6 +87,24 @@ if($_SESSION['role'] !== 'admin') {
         crossorigin="anonymous"></script>
     <script src="js/model.js"></script>
     <script src="js/controller.js"></script>
+    <script>
+        $(() => {
+            let table = $("table[data-url]");
+            getTableData(table).done( data => {
+                if(R.isEmpty(data[0])) {
+                    $(`h1[data-label-for=${$(table).attr('id')}]`).addClass('invisible');
+                    return;
+                }
+                $(`h1[data-label-for=${$(table).attr('id')}]`).removeClass('invisible');
+                storeData(table, data);
+                buildTableHeader(table);
+                buildTable(table);
+                addHandlers(table);
+ 
+                buildPagination("#paginationNav");
+            });
+        });
+    </script>
 </body>
 
 </html>

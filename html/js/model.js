@@ -22,38 +22,38 @@ const sortMethod = {
 
 const sortAnimalsBy = {
   // Shared sort methods
-  id: R.sort(sortMethod.numeric("id")),
-  name: R.sort(sortMethod.caseInsensitiveString("name")),
-  sex: R.sort(sortMethod.caseInsensitiveString("sex")),
-  age: R.sort(sortMethod.numeric("age")),
+  id: R.sort(sortMethod.numeric('id')),
+  name: R.sort(sortMethod.caseInsensitiveString('name')),
+  sex: R.sort(sortMethod.caseInsensitiveString('sex')),
+  age: R.sort(sortMethod.numeric('age')),
   // Dog and cat sort methods
-  breed: R.sort(sortMethod.caseInsensitiveString("breed")),
-  shots: R.sort(sortMethod.boolean("shots")),
-  neutered: R.sort(sortMethod.boolean("neutered")),
+  breed: R.sort(sortMethod.caseInsensitiveString('breed')),
+  shots: R.sort(sortMethod.boolean('shots')),
+  neutered: R.sort(sortMethod.boolean('neutered')),
   // Cat sort methods
-  declawed: R.sort(sortMethod.boolean("declawed")),
+  declawed: R.sort(sortMethod.boolean('declawed')),
   // Dog sort methods
-  licensed: R.sort(sortMethod.boolean("licensed")),
-  size: R.sort(sortMethod.numeric("weight")),
+  licensed: R.sort(sortMethod.boolean('licensed')),
+  size: R.sort(sortMethod.numeric('weight')),
   // Exotic sort methods
-  species: R.sort(sortMethod.caseInsensitiveString("species"))
+  species: R.sort(sortMethod.caseInsensitiveString('species'))
 };
 
 const filterAnimalsBy = {
   id: value =>
-    R.filter(R.anyPass([() => isNullOrEmpty(value), R.propEq("id", value)])),
+    R.filter(R.anyPass([() => isNullOrEmpty(value), R.propEq('id', value)])),
   name: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        propertyCaseInsensitiveLike("name", value)
+        propertyCaseInsensitiveLike('name', value)
       ])
     ),
   sex: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        propertyCaseInsensitiveLike("sex", value)
+        propertyCaseInsensitiveLike('sex', value)
       ])
     ),
   age: (value1, value2) =>
@@ -64,52 +64,56 @@ const filterAnimalsBy = {
             R.gte(age, isNullOrEmpty(value1) ? -Infinity : value1),
             R.lte(age, isNullOrEmpty(value2) ? Infinity : value2)
           ),
-        "age"
+        'age'
       )
     ),
   breed: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        propertyCaseInsensitiveLike("breed", value)
+        propertyCaseInsensitiveLike('breed', value)
       ])
     ),
   shots: value =>
     R.filter(
-      R.anyPass([() => isNullOrEmpty(value), R.propEq("shots", Boolean(Number(value)) ? 1 : 0)])
+      R.anyPass([
+        () => isNullOrEmpty(value),
+        R.propEq('shots', Boolean(Number(value)) ? 1 : 0)
+      ])
     ),
   neutered: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        R.propEq("neutered", Boolean(Number(value)) ? 1 : 0)
+        R.propEq('neutered', Boolean(Number(value)) ? 1 : 0)
       ])
     ),
   declawed: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        R.propEq("declawed", Boolean(Number(value)) ? 1 : 0)
+        R.propEq('declawed', Boolean(Number(value)) ? 1 : 0)
       ])
     ),
   licensed: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        R.propEq("licensed", Boolean(Number(value)) ? 1 : 0)
+        R.propEq('licensed', Boolean(Number(value)) ? 1 : 0)
       ])
     ),
   size: value =>
     R.filter(
       R.anyPass([
-        () => isNullOrEmpty(value), 
-        animal => R.equals(value, weightToSize(R.prop("weight", animal)))
-      ])),
+        () => isNullOrEmpty(value),
+        animal => R.equals(value, weightToSize(R.prop('weight', animal)))
+      ])
+    ),
   species: value =>
     R.filter(
       R.anyPass([
         () => isNullOrEmpty(value),
-        propertyCaseInsensitiveLike("species", value)
+        propertyCaseInsensitiveLike('species', value)
       ])
     )
 };

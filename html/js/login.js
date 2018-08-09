@@ -1,31 +1,30 @@
 $(() => {
-  console.log("loaded");
-  $("button#login").click(verifyLogin);
+  $('button#login').click(verifyLogin);
 });
 
 const verifyLogin = () => {
-  $.post("login/", {
-    username: $("input#username").val(),
-    password: $("input#password").val()
+  $.post('login/', {
+    username: $('input#username').val(),
+    password: $('input#password').val()
   })
     .done(loginSuccess)
     .fail(loginFail);
 };
 
 const loginFail = () => {
-  alert("Failed");
+  $('#loginModal').modal();
 };
 
 const loginSuccess = data => {
   switch (data.role) {
-    case "admin":
-      $(location).attr("href", "owners.php");
+    case 'admin':
+      $(location).attr('href', 'owners.php');
       break;
-    case "owner":
-      $(location).attr("href", "pets.php");
+    case 'owner':
+      $(location).attr('href', 'pets.php');
       break;
     default:
-      $(location).attr("href", "index.php");
+      $(location).attr('href', 'index.php');
       break;
   }
 };

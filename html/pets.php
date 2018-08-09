@@ -70,6 +70,24 @@ if($_SESSION['role']!=='owner') {
         crossorigin="anonymous"></script>
     <script src="js/model.js"></script>
     <script src="js/controller.js"></script>
+    <script>
+        $(() => {
+            let tables = $("table[data-url]");
+            tables.each((index,table) => {
+                getTableData(table).done( data => {
+                    if(R.isEmpty(data[0])) {
+                        $(`h1[data-label-for=${$(table).attr('id')}]`).addClass('invisible');
+                        return;
+                    }
+                    $(`h1[data-label-for=${$(table).attr('id')}]`).removeClass('invisible');
+                    storeData(table, data);
+                    buildTableHeader(table);
+                    buildTable(table);
+                    addHandlers(table); 
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
